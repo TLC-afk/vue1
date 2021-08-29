@@ -6,12 +6,9 @@
 </template>
 
 <style lang="scss">
+@import "~@/assets/style/reset.scss";
 @import "~@/assets/style/helper.scss";
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+
 body{
   line-height: 1.5;
   font-family: $font-hei;
@@ -19,10 +16,7 @@ body{
   -moz-osx-font-smoothing: grayscale;
   color: #333;
 }
-a{
-  text-decoration: none;
-  color:inherit;
-}
+
 
 
 
