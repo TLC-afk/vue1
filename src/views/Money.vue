@@ -1,11 +1,15 @@
 <template>
   <Layout class-prefix="layout">
     <NumberPad @update:value="onUpdateMount" @submit="saveRecord"/>
-    <Types :value.sync="record.type" />
-    <Notes @update:value="onUpdateNotes"
-           file-name="备注"
-           place-holder="在这里添加备注"
-    />
+    <Types :value.sync="record.type"/>
+    <div class="notes">
+      <FormItem @update:value="onUpdateNotes"
+                file-name="备注"
+                place-holder="在这里添加备注"
+
+      />
+    </div>
+
     <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
   </Layout>
 </template>
@@ -14,44 +18,47 @@
 import Vue from 'vue';
 import NumberPad from '@/components/Money/NumberPad.vue';
 import Types from '@/components/Money/Types.vue';
-import Notes from '@/components/Money/Notes.vue';
+import FormItem from '@/components/Money/FormItem.vue';
 import Tags from '@/components/Money/Tags.vue';
 import {Component, Watch} from 'vue-property-decorator';
 import recordListModel from '@/models/recordListModel';
 import tagListModels from '@/models/tagListModels';
 
-const recordList = recordListModel.fetch()
+const recordList = recordListModel.fetch();
 @Component({
-  components: {Tags, Notes, Types, NumberPad},
+  components: {Tags, FormItem, Types, NumberPad},
 })
 
 export default class Money extends Vue {
 
   tags = tagListModels.fetch();
-  recordList: RecordItem[]=recordList
-  record : RecordItem ={
-    tags:[],notes:'',type:'-',mount:0
-  }
+  recordList: RecordItem[] = recordList;
+  record: RecordItem = {
+    tags: [], notes: '', type: '-', mount: 0
+  };
+
   onUpdateTags(value: string[]) {
-    this.record.tags = value
+    this.record.tags = value;
   }
 
   onUpdateNotes(value: string) {
-    this.record.notes = value
+    this.record.notes = value;
   }
+
   onUpdateMount(value: string) {
-    this.record.mount =  parseFloat(value)
+    this.record.mount = parseFloat(value);
   }
 
-  saveRecord(){
-    const record2:RecordItem = recordListModel.clone(this.record)
-    record2.createAt = new Date()
-    this.recordList.push(record2)
+  saveRecord() {
+    const record2: RecordItem = recordListModel.clone(this.record);
+    record2.createAt = new Date();
+    this.recordList.push(record2);
 
   }
-  @Watch("recordList")
-  onRecordListChange(){
-    recordListModel.save(this.recordList)
+
+  @Watch('recordList')
+  onRecordListChange() {
+    recordListModel.save(this.recordList);
   }
 };
 
@@ -67,6 +74,9 @@ export default class Money extends Vue {
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";
 
+.notes {
+  padding: 12px 0;
+}
 
 </style>
 
