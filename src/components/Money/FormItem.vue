@@ -1,13 +1,13 @@
 <template>
   <div>
     <label class="formItem">
-      <span class="name">{{this.fileName}}</span>
+      <span class="name">{{ this.fileName }}</span>
       <input type="text" :placeholder="this.placeHolder"
-             v-model="value"
+             :value="value"
+             @input="onValueChanged($event.target.value)"
       >
     </label>
   </div>
-
 </template>
 
 <script lang="ts">
@@ -16,13 +16,15 @@ import {Component, Prop, Watch} from 'vue-property-decorator';
 
 @Component
 export default class FormItem extends Vue {
-  value = '';
-  @Watch("value")
-    onValueChanged(value:string){
-    this.$emit("update:value",value)
+  @Prop({default: ''}) readonly value!: string;
+
+  @Watch('value')
+  onValueChanged(value: string) {
+    this.$emit('update:value', value);
   }
-  @Prop({default:true}) fileName!:string
-  @Prop()placeHolder?:string
+
+  @Prop({default: true}) fileName!: string;
+  @Prop() placeHolder?: string;
 };
 </script>
 
