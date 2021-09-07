@@ -2,7 +2,7 @@
   <div>
     <label class="formItem">
       <span class="name">{{ this.fileName }}</span>
-      <input type="text" :placeholder="this.placeHolder"
+      <input type="text" :placeholder="placeHolder"
              :value="value"
              @input="onValueChanged($event.target.value)"
       >
@@ -18,7 +18,7 @@ import {Component, Prop, Watch} from 'vue-property-decorator';
 export default class FormItem extends Vue {
   @Prop({default: ''}) readonly value!: string;
 
-  @Watch('value')
+
   onValueChanged(value: string) {
     this.$emit('update:value', value);
   }
