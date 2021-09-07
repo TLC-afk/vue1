@@ -6,7 +6,7 @@
       <span class="right"></span>
     </div>
     <div class="formWapper">
-      <FormItem file-name="标签名" place-holder="请输入"/>
+      <FormItem file-name="备注" place-holder="请输入"/>
     </div>
     <div class="button-wrapper">
       <Button>删除标签</Button>
