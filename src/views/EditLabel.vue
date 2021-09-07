@@ -6,7 +6,10 @@
       <span class="right"></span>
     </div>
     <div class="formWapper">
-      <FormItem file-name="标签名" place-holder="请输入"/>
+      <FormItem file-name="标签名"
+                place-holder="请输入"
+                :value="tag.name"
+      />
     </div>
     <div class="button-wrapper">
       <Button>删除标签</Button>
@@ -20,17 +23,19 @@ import {Component} from 'vue-property-decorator';
 import tagListModel from '@/models/tagListModels';
 import FormItem from '@/components/Money/FormItem.vue';
 import Button from '@/components/Button.vue';
+import Tags from '@/components/Money/Tags.vue';
 @Component({
   components: {Button, FormItem}
 })
 export default class EditLabel extends Vue {
+  tag?:{id:string,name:string} =undefined
   created(){
     const id = this.$route.params.id
     tagListModel.fetch()
     const tags = tagListModel.data
     const tag = tags.filter(item => item.id === id)[0]
     if(tag){
-      console.log(tag);
+      this.tag = tag
     }else{
       this.$router.replace('/404')
     }

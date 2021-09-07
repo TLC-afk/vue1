@@ -9,7 +9,6 @@
 
       />
     </div>
-    {{record}}
     <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
   </Layout>
 </template>
