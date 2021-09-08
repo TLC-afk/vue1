@@ -44,7 +44,7 @@ const tagListModel: TagListModel = {
     }
     this.data.splice(index, 1);
     this.save()
-    return 'success'
+    return true
   }
 
 };

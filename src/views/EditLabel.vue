@@ -21,71 +21,78 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
-import tagListModel from '@/models/tagListModels';
 import FormItem from '@/components/Money/FormItem.vue';
 import Button from '@/components/Button.vue';
-import Tags from '@/components/Money/Tags.vue';
+
 @Component({
   components: {Button, FormItem}
 })
 export default class EditLabel extends Vue {
-  tag?:{id:string,name:string} =undefined
-  created(){
-    const id = this.$route.params.id
-    tagListModel.fetch()
-    const tags = tagListModel.data
-    const tag = tags.filter(item => item.id === id)[0]
-    if(tag){
-      this.tag = tag
-    }else{
-      this.$router.replace('/404')
+  tag?: Tag = undefined;
+
+  created() {
+    this.tag = window.findTag(this.$route.params.id);
+    if (!this.tag) {
+      this.$router.replace('/404');
     }
 
+
   }
-  update(name:string){
-    if(this.tag){
-      tagListModel.update(this.tag.id,name)
+
+  update(name: string) {
+    if (this.tag) {
+      window.updateTag(name, this.tag.id);
     }
   }
-  remove(){
-    if(this.tag){
-      tagListModel.remove(this.tag.id)
-      this.$router.back()
+
+  remove() {
+    if (this.tag) {
+      if (window.removeTag(this.tag.id)) {
+        this.$router.back();
+      } else {
+        window.alert('删除失败');
+      }
     }
   }
-  goBack(){
-    this.$router.back()
+
+  goBack() {
+    this.$router.back();
   }
 
 }
 </script>
 
 <style lang="scss" scoped>
-.navBar{
-  display:flex;
+.navBar {
+  display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 12px 16px;
   background: white;
   font-size: 16px;
-  .leftIcon{
 
-    width:24px;
-    height:24px;
+  .leftIcon {
+
+    width: 24px;
+    height: 24px;
   }
-  .title{
+
+  .title {
 
   }
-  .right{
-    width:24px;
-    height:24px;
+
+  .right {
+    width: 24px;
+    height: 24px;
   }
 }
-.formWapper{
+
+.formWapper {
   background: white;
   margin-top: 8px;
 }
-.button-wrapper{
+
+.button-wrapper {
   text-align: center;
   padding: 16px;
   margin-top: 28px;
