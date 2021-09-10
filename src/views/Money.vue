@@ -1,7 +1,7 @@
 <template>
   <Layout class-prefix="layout">
     <NumberPad @update:value="onUpdateMount" @submit="saveRecord"/>
-    <Types :value.sync="record.type"/>
+    <Tabs :data-source="typeList" :value.sync="record.type"/>
     <div class="notes">
       <FormItem @update:value="onUpdateNotes"
                 file-name="备注"
@@ -20,14 +20,17 @@ import Types from '@/components/Money/Types.vue';
 import FormItem from '@/components/Money/FormItem.vue';
 import Tags from '@/components/Money/Tags.vue';
 import {Component} from 'vue-property-decorator';
+import Tabs from '@/components/Tabs.vue';
+import typeList from '@/constant/typeList';
 
 
 
 @Component({
-  components: {Tags, FormItem, Types, NumberPad},
+  components: {Tabs, Tags, FormItem, Types, NumberPad},
 })
 
 export default class Money extends Vue {
+  typeList=typeList
   get recordList(){
     return this.$store.state.recordList
   }
