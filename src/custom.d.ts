@@ -3,7 +3,7 @@ type RecordItem = {
   notes: string
   type: string
   mount: number
-  createAt?: Date
+  createAt?: string
 }
 type Tag = {
   id: string
@@ -17,7 +17,11 @@ type TagListModel = {
   update: (name: string, id: string) => 'success' | 'duplicated' | 'not found'
   remove: (id: string) => boolean
 }
-
+type  RootState ={
+  recordList: RecordItem[],
+  tagList:Tag[],
+  currentTag?:Tag
+}
 interface Window {
 
 }
