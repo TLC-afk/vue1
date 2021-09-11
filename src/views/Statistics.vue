@@ -24,8 +24,8 @@ import typeList from '@/constant/typeList';
 export default class Statistics extends Vue {
   type = '';
   interval = '';
-  intervalList = intervalList
-  typeList = typeList
+  intervalList = intervalList;
+  typeList = typeList;
 };
 </script>
 
@@ -40,5 +40,8 @@ export default class Statistics extends Vue {
       display: none;
     }
   }
+}
+::v-deep .interval-tabs{
+  height:48px;
 }
 </style>
