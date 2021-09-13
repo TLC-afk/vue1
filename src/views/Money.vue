@@ -4,12 +4,12 @@
     <Tabs :data-source="typeList" :value.sync="record.type"/>
     <div class="notes">
       <FormItem @update:value="onUpdateNotes"
+                :value="record.notes"
                 file-name="备注"
                 place-holder="在这里添加备注"
-
       />
     </div>
-    <Tags />
+    <Tags @update:value="record.tags = $event"/>
   </Layout>
 </template>
 
@@ -49,7 +49,8 @@ export default class Money extends Vue {
 
   saveRecord() {
     this.$store.commit('createRecord',this.record)
-
+    window.alert('记账成功');
+    this.record.notes=''
   }
 
 

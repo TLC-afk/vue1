@@ -4,9 +4,9 @@
           class-prefix="types"
     />
 
-    <ol>
+    <ol v-if="groupList.length>0">
       <li v-for="(group,index) in groupList" :key="index">
-        <h3 class="title">{{ beautify(group.title) }}<span>￥{{group.total}}</span></h3>
+        <h3 class="title">{{ beautify(group.title) }}<span>￥{{ group.total }}</span></h3>
 
         <ol>
           <li v-for="item in group.items" :key="item.id"
@@ -18,7 +18,9 @@
         </ol>
       </li>
     </ol>
-
+<div v-else class="no-record">
+  目前没有相关记录
+</div>
 
   </Layout>
 </template>
@@ -51,7 +53,7 @@ export default class Statistics extends Vue {
   }
 
   tagString(tags: Tag[]) {
-    return tags.length === 0 ? '无' : tags.join(',');
+    return tags.length === 0 ? '无' : tags.map(i =>i.name).join('，');
   }
 
   created() {
@@ -64,36 +66,40 @@ export default class Statistics extends Vue {
 
   get groupList() {
     let {recordList} = this;
-    if(recordList.length === 0){return []}
     const newList = clone(recordList)
-         .filter(r =>r.type === this.type)
-        .sort((a, b) => dayjs(b.createAt).valueOf() - dayjs(a.createAt).valueOf())
-    type Result ={title:string,items:RecordItem[],total?:number}[]
-    const result :Result= [{title:dayjs(newList[0].createAt).format('YYYY-M-D'),items:[newList[0]]}]
-    for(let i=1;i<newList.length;i++){
-      const last = result[result.length-1]
-      const current=newList[i]
-      if(dayjs(current.createAt).isSame(last.title,'day')){
-        last.items.push(current)
-      }else{
-        result.push({title:dayjs(current.createAt).format('YYYY-M-D'),items:[current]})
+        .filter(r => r.type === this.type)
+        .sort((a, b) => dayjs(b.createAt).valueOf() - dayjs(a.createAt).valueOf());
+    if (newList.length === 0) {return [];}
+    type Result = { title: string, items: RecordItem[], total?: number }[]
+    const result: Result = [{title: dayjs(newList[0].createAt).format('YYYY-M-D'), items: [newList[0]]}];
+    for (let i = 1; i < newList.length; i++) {
+      const last = result[result.length - 1];
+      const current = newList[i];
+      if (dayjs(current.createAt).isSame(last.title, 'day')) {
+        last.items.push(current);
+      } else {
+        result.push({title: dayjs(current.createAt).format('YYYY-M-D'), items: [current]});
       }
     }
-    result.forEach(group =>{
-      group.total = group.items.reduce((sum,item)=>sum+=item.mount,0)
-    })
-    return result
+    result.forEach(group => {
+      group.total = group.items.reduce((sum, item) => sum += item.mount, 0);
+    });
+    return result;
   }
 };
 </script>
 
 <style lang="scss" scoped>
+.no-record{
+  padding: 16px;
+  text-align: center;
+}
 ::v-deep {
   .types-tabs-item {
-    background: white;
+    background: #c4c4c4;
 
     &.selected {
-      background: #c4c4c4;
+      background: white;
 
       &::after {
         display: none;
