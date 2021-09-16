@@ -34,9 +34,8 @@ export default class Tabs extends Vue {
 .tabs {
   display: flex;
   height: 64px;
-  background: #c4c4c4;
+  background:#e3b54c;
   font-size: 24px;
-
   > li {
     width: 50%;
     display: flex;
@@ -50,7 +49,7 @@ export default class Tabs extends Vue {
       bottom: 0;
       left: 0;
       background: black;
-      height: 3px;
+      height: 2px;
       width: 100%;
     }
   }

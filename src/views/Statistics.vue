@@ -6,7 +6,7 @@
 
     <ol v-if="groupList.length>0">
       <li v-for="(group,index) in groupList" :key="index">
-        <h3 class="title">{{ beautify(group.title) }}<span>￥{{ group.total }}</span></h3>
+        <h3 class="title"><span class="date">{{ beautify(group.title) }}</span><span>￥{{ group.total }}</span></h3>
 
         <ol>
           <li v-for="item in group.items" :key="item.id"
@@ -19,7 +19,8 @@
       </li>
     </ol>
 <div v-else class="no-record">
-  目前没有相关记录
+  <Icon name="no-data"/>
+  <span>暂无数据</span>
 </div>
 
   </Layout>
@@ -90,16 +91,24 @@ export default class Statistics extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.date{
+  color: #f7960b;
+}
 .no-record{
   padding: 16px;
   text-align: center;
+  color:#999;
+  ::v-deep .icon{
+    width: 70px;
+    height:70px;
+  }
 }
 ::v-deep {
   .types-tabs-item {
-    background: #c4c4c4;
+    background: white;
 
     &.selected {
-      background: white;
+      background: #e3b54c;
 
       &::after {
         display: none;

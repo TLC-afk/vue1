@@ -30,11 +30,17 @@ export default class Tags extends mixins(TagHelper) {
   }
 
   toggle(tag: string) {
-    const index = this.selectedTags.indexOf(tag);
-    if (index >= 0) {
-      this.selectedTags.splice(index, 1);
-    } else {
-      this.selectedTags.push(tag);
+    //const index = this.selectedTags.indexOf(tag);
+    // if (index >= 0) {
+    //   this.selectedTags.splice(index, 1);
+    // } else {
+    //   this.selectedTags.push(tag);
+    // }
+    if(this.selectedTags.length ===0){
+      this.selectedTags.push(tag)
+    }else{
+      this.selectedTags.shift()
+      this.selectedTags.push(tag)
     }
     this.$emit('update:value', this.selectedTags);
   }
@@ -69,7 +75,7 @@ export default class Tags extends mixins(TagHelper) {
       margin-top: 6px;
 
       &.selected {
-        background: darken($bg, 50%);
+        background: #ecdb8f;
         color: white;
       }
     }

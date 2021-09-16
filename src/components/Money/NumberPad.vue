@@ -1,11 +1,11 @@
 <template>
   <div class="numberPad">
-    <div class="output">{{ output }}</div>
+    <div class="output"><Icon name="dollar"/> {{ output }}</div>
     <div class="buttons">
       <button @click="outputContent">1</button>
       <button @click="outputContent">2</button>
       <button @click="outputContent">3</button>
-      <button @click="remove">删除</button>
+      <button @click="remove" ><Icon name="delete" class="delete"/></button>
       <button @click="outputContent">4</button>
       <button @click="outputContent">5</button>
       <button @click="outputContent">6</button>
@@ -74,10 +74,12 @@ export default class NumberPad extends Vue {
 
 .numberPad {
   .output {
+    color: $color-heighlight;
+    display: flex;
     font-family: Consolas, monospace;
     font-size: 36px;
     padding: 9px 0;
-    text-align: right;
+    justify-content: right;
     box-shadow: inset 0 -5px 5px -5px fade-out(black, 0.6), inset 0 5px 5px -5px fade-out(black, 0.6);
     min-height: 72px;
   }
@@ -86,6 +88,7 @@ export default class NumberPad extends Vue {
     @extend %clearfix;
 
     > button {
+      font-size: 20px;
       width: 25%;
       height: 64px;
       float: left;

@@ -1,7 +1,6 @@
 <template>
   <Layout class-prefix="layout">
     <NumberPad @update:value="onUpdateMount" @submit="saveRecord"/>
-    <Tabs :data-source="typeList" :value.sync="record.type"/>
     <div class="notes">
       <FormItem @update:value="onUpdateNotes"
                 :value="record.notes"
@@ -10,6 +9,8 @@
       />
     </div>
     <Tags @update:value="record.tags = $event"/>
+    <Tabs :data-source="typeList" :value.sync="record.type"/>
+
   </Layout>
 </template>
 
@@ -48,8 +49,10 @@ export default class Money extends Vue {
   }
 
   saveRecord() {
+    if(!this.record||this.record.tags.length=== 0){
+       return window.alert('请至少选择一个标签')
+    }
     this.$store.commit('createRecord',this.record)
-    window.alert('记账成功');
     this.record.notes=''
   }
 

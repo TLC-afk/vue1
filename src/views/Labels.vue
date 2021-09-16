@@ -64,6 +64,7 @@ export default class Labels extends mixins(TagHelper) {
 .createTag-wrapper {
   text-align: center;
   margin-top: 40px;
+
 }
 
 

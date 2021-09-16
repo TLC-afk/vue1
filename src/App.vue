@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="app">
     <router-view/>
   </div>
 
@@ -18,7 +18,10 @@ body{
   background: #f4f4f4;
 }
 
-
+#app{
+  max-width: 500px;
+  margin: 0 auto;
+}
 
 
 

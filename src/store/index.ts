@@ -62,7 +62,7 @@ const store = new Vuex.Store({
     createTag(state,name: string) {
       const names = state.tagList.map(item => item.name);
       if (names.indexOf(name) >= 0) {
-        window.alert('标签名重复了');
+        return window.alert('标签名重复了');
       }
       const id = createId().toString();
       state.tagList.push({id: id, name: name});
@@ -74,9 +74,9 @@ const store = new Vuex.Store({
       state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
     },
     createRecord(state,record)  {
-      if(!state.recordList||state.recordList.length===0){
-        return window.alert('请至少选择一个标签')
-      }
+      // if(!state.recordList||state.recordList.length===0){
+      //   return window.alert('请至少选择一个标签')
+      // }
       const record2: RecordItem = clone(record);
       record2.createAt = new Date().toISOString();
       state.recordList.push(record2);
@@ -84,6 +84,7 @@ const store = new Vuex.Store({
     },
     saveRecords(state){
       window.localStorage.setItem('recordList', JSON.stringify(state.recordList));
+      window.alert('记账成功');
     },
   },
 
